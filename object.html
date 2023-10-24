@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        border: 2px solid black;
+        border-collapse: collapse;
+        border-radius: 20px;
+        margin-top: 20px;
+        border-style: hidden;
+      }
+      td {
+        border: 1px solid;
+        border-radius: 10px;
+      }
+
+      body {
+        background: linear-gradient(320deg, #eb92be, #ffef78, #63c9b4);
+        background-repeat: no-repeat;
+        height: 600px;
+      }
+      .todo {
+        text-align: center;
+        border: 2px solid black;
+        width: 80%;
+        margin-left: 10%;
+        padding: 20px;
+        border-radius: 20px;
+      }
+      .todo input {
+        padding: 10px;
+
+        width: 40%;
+        /* gap: 20px; */
+        /* display: flex; */
+        font-size: 20px;
+        border-radius: 10px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: black;
+        border: none;
+      }
+      .todo button {
+        padding: 10px;
+        min-width: 20%;
+        margin-top: 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 20px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .todo table {
+        margin: auto;
+        width: 100%;
+        border: 1px solid red;
+        border-radius: 10%;
+        padding: 20px;
+      }
+      .dis {
+        /* border-radius: 20px;
+        border: 2px solid red; */
+        /* margin-top: 20px; */
+        background-color: white;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: black;
+        font-size: 20px;
+        overflow-y: scroll;
+
+        height: 100px;
+        /* border: 1px solid black; */
+        /* border-radius: 20px; */
+      }
+
+      .main {
+        padding: 5px;
+        background-color: white;
+        margin-top: 20px;
+        border-radius: 20px;
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="todo">
+      <input type="text" placeholder="Todo Title" id="todoTitle" />
+      <input type="text" placeholder="Todo Details" id="todoDetails" />
+      <button onclick="submitTodo()">submit</button>
+      <div class="main">
+        <div class="dis"><table id="display"></table></div>
+      </div>
+    </div>
+    <script>
+      var allTodos = [];
+      function displayTodo() {
+        allTodos.map((tod, index) => {
+          display.innerHTML += `
+            <tr>
+                 <td>${index + 1}<i/td>
+                 <td>${tod.title}</td>
+                <td> ${tod.details}</td>
+                <td> ${tod.time}</td> 
+                <td>${tod.date}</td>
+                <td><button style="color:red;border:none;background-color:black;" onclick="deleteTodo(${index})">Delete</button></td>
+                </tr>
+                `;
+        });
+      }
+      function submitTodo() {
+        display.innerHTML = "";
+        var day = new Date();
+        var time = day.toLocaleTimeString();
+        var date = day.toLocaleDateString();
+        var title = todoTitle.value;
+        var details = todoDetails.value;
+        // console.log(todoTitle.value,todoDetails.value);
+        var todoObj = { title, details, time, date };
+        todoTitle.value = "";
+        todoDetails.value = "";
+        allTodos.push(todoObj);
+        // console.log(todoObj);
+        // console.log(allTodos);
+
+        displayTodo();
+      }
+
+      function deleteTodo(index) {
+        // console.log("working")
+        console.log(index);
+        allTodos.splice(index, 1);
+        display.innerHTML = "";
+        displayTodo();
+        console.log(allTodos);
+      }
+      // var item = {
+      //   itemName : 'Shoe' ,
+      //   price : 3000,
+      //   colour : 'peru',
+
+      //   action(){
+      //     console.log(`The item is ${item.itemName},the price is ${item.price} and the colour is ${item.colour}`);
+      //   }
+      // }
+      // console.log(item['colour']);
+      // function clicked(){
+      //     item.action()
+      // }
+      // console.log(item.itemName);
+      // {key:value,key2:value}
+      // object are key value pairs
+    </script>
+  </body>
+</html>
